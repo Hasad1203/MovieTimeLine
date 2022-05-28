@@ -1,0 +1,119 @@
+.login_main {
+  background: linear-gradient(-45deg, #af733b, #15133c, #1c3b27, #af733b);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.login_header {
+  text-decoration: none;
+  align-items: center;
+  font-size: 70px;
+  padding: 2%;
+  color: #ffffff81;
+  font-weight: 800;
+}
+.sign_up {
+  font-weight: 700;
+  text-decoration: none;
+  width: auto;
+  font-size: 30px;
+  color: #ec994b;
+  position: absolute;
+  left: 90%;
+  top: 2%;
+}
+.login_background {
+  background: #ffffff;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50vw;
+  height: 50vh;
+  border-radius: 15px;
+  margin-top: 10vh;
+  padding: 2%;
+  text-align: center;
+}
+.login_background:hover {
+  transform: translate(0px, -5px);
+  transition: 0.5s;
+}
+.login_background h1 {
+  color: black;
+  padding-bottom: 0%;
+  margin-bottom: 0%;
+}
+.login_button {
+  margin-top: 5%;
+  text-align: center;
+  padding: 2%;
+  align-items: center;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 20px;
+  border-radius: 30px;
+  width: 70%;
+  background-color: #ec994b;
+}
+.login_button:hover {
+  background-color: #ec994ba5;
+  transition: 0.4s;
+}
+.form_group {
+  border-color: #ec994b00;
+  border-bottom-color: #ec994b;
+  background-color: rgba(0, 0, 0, 0);
+  background-color: none;
+  color: #ffffff;
+  margin-top: 15%;
+  margin: 5%;
+  width: 70%;
+  font-size: larger;
+}
+@media (max-width: 1045px) {
+  .sign_up {
+    left: 85%;
+  }
+  .form_group {
+    margin: 5%;
+  }
+  .login_background {
+    width: 75vw;
+  }
+}
+@media (max-width: 1045px) {
+  .sign_up {
+    left: 43%;
+    top: 80%;
+  }
+}
+
+@media (max-width: 584px) {
+  .login_header {
+    font-size: 50px;
+  }
+  .form_group {
+    margin: 8%;
+  }
+}
+@media (max-width: 415px) {
+  .form_group {
+    margin: 14%;
+  }
+  .sign_up {
+    left: 37%;
+  }
+}
