@@ -1,0 +1,1 @@
+# Used to initialize Flask Applicaton & Database
