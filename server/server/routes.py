@@ -75,15 +75,17 @@ def add_movie():
 
         db_session.add(new_movie)
         db_session.commit()
+        
 
     update_user = db_session.query(User).filter_by(id=current_user.id).first()
     current_movie_ids = update_user.movie_ids
     current_movie_ids_list = current_movie_ids.split(',')
-    current_movie_ids_list.append(movie_query[0].movieID)
-    current_movie_ids_string = ','.join(current_movie_ids_list)
-    update_user.movie_ids = current_movie_ids_string
-    db_session.commit()
-    return
+    if not movie_query[0].movieID in current_movie_ids_list:
+        current_movie_ids_list.append(movie_query[0].movieID)
+        current_movie_ids_string = ','.join(current_movie_ids_list)
+        update_user.movie_ids = current_movie_ids_string
+        db_session.commit()
+    return jsonify()
 
 
 @app.route('/display', methods=['GET','POST'])
