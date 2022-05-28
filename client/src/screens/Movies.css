@@ -93,6 +93,8 @@
 }
 
 .item-main:hover {
+  transition: margin 0.2s linear;
+  transition: background-color 0.2s linear;
   background-color: rgb(195, 40, 40);
   border: 1px solid rgb(195, 40, 40);
   color: #15133c;
@@ -102,16 +104,20 @@
 }
 
 .item-main:hover .item-image {
+  transition: width 0.2s linear;
   width: 225px;
 }
 
 .item-main:hover .item-header {
+  transition: font-size 0.2s linear;
   font-size: 28px;
 }
 .item-main:hover .item-directors {
+  transition: font-size 0.2s linear;
   font-size: 18px;
 }
 .item-main:hover .item-countdown {
+  transition: font-size 0.2s linear;
   font-size: 27px;
 }
 
