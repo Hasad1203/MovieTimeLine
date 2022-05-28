@@ -33,7 +33,9 @@ const Item = (props) => {
     <div className="item-main">
       <img className="item-image" src={cover_url} />
       <div className="item-header">{title}</div>
-      <div className="item-directors">{directors}</div>
+      {directors.map((director) => (
+        <div className="item-directors">{director}</div>
+      ))}
       <div className="item-countdown">
         <Countdown
           className="item-countdown-inner"
