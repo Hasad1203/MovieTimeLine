@@ -106,13 +106,13 @@
 }
 
 .item-main:hover .item-header {
-  font-size: 32px;
+  font-size: 28px;
 }
 .item-main:hover .item-directors {
   font-size: 18px;
 }
 .item-main:hover .item-countdown {
-  font-size: 28px;
+  font-size: 27px;
 }
 
 .item-image {
@@ -123,17 +123,17 @@
 
 .item-header {
   margin-top: 5px;
-  font-size: 30px;
+  font-size: 26px;
   text-transform: uppercase;
   text-align: center;
   font-weight: bolder;
-  max-width: 220px;
+  max-width: 200px;
   text-align: center;
 }
 
 .item-directors {
   font-size: 16px;
-  max-width: 220px;
+  max-width: 200px;
   text-align: center;
 }
 
