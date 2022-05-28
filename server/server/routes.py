@@ -17,7 +17,8 @@ def load_user(username):
 
 @app.route('/reg', methods=['GET','POST'])
 def registration():
-    if db_session.query(User).filter_by(id='hasad1203'):
+    
+    if db_session.query(User).filter_by(id='hasad1203') != None:
         db_session.delete(db_session.query(User).filter_by(id='hasad1203').first())
         db_session.commit()
     new_user = User(id='hasad1203', password='applesauce', movie_ids='1')
@@ -26,20 +27,18 @@ def registration():
 
     login_user(new_user)
 
-    string = "You have been registered!"
-
-    return string
+    return jsonify("1")
 
 @app.route('/login', methods=['GET','POST'])
 @login_required
 def login():
-    return current_user.id
+    return jsonify("1")
 
 @app.route('/logout', methods=['GET','POST'])
 @login_required
 def logout():
     logout_user()
-    return 'You have been logged out!'
+    return jsonify("1")
 
 @app.route('/add', methods=['GET','POST'])
 @login_required
@@ -85,7 +84,8 @@ def add_movie():
         current_movie_ids_string = ','.join(current_movie_ids_list)
         update_user.movie_ids = current_movie_ids_string
         db_session.commit()
-    return jsonify()
+
+    return jsonify("1")
 
 
 @app.route('/display', methods=['GET','POST'])
@@ -106,6 +106,26 @@ def return_movies():
         movie_objects.append(current_movie_object)
     movie_objects = sorted(movie_objects, key=lambda d: datetime.strptime(d['release date'], "%d %B %Y")) 
     return jsonify(movie_objects)
+
+@app.route('/delete', methods=['GET','POST'])
+@login_required
+def delete_movie():
+    deletion_id = '12345'
+    current_user = db_session.query(User).filter_by(id=current_user.id).first()
+    current_user_movies = current_user.movie_ids
+    current_user_movies_list = current_user_movies.split(',')
+    for i in range(current_user_movies_list):
+        if current_user_movies_list[i] == deletion_id:
+            current_user_movies_list.pop(i)
+        break
+    current_user_movies_ids_string = ','.join(current_user_movies_list)
+    current_user.movie_ids = current_user_movies_ids_string
+    db_session.commit()
+
+    return jsonify("1")
+
+    
+
 
 
 
