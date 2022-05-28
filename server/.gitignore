@@ -1,0 +1,5 @@
+# virtual environment and dependancies
+/venv/
+
+#pycache files
+**.pyc
