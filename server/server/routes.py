@@ -104,7 +104,7 @@ def return_movies():
         'plot_summary':current_movie.plot_summary,
         'release_date':current_movie.release_date}
         movie_objects.append(current_movie_object)
-        movie_objects = sorted(movie_objects, key=lambda d: datetime.strptime(d['release date'], "%d %B %Y")) 
+    movie_objects = sorted(movie_objects, key=lambda d: datetime.strptime(d['release date'], "%d %B %Y")) 
     return jsonify(movie_objects)
 
 
