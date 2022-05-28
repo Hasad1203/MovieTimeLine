@@ -2,29 +2,32 @@
 
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import declarative_base, Session
-from sqlalchemy_utils import JSONType
-
+from flask_login import UserMixin
 
 Base = declarative_base()
 
-class User(Base):
+class User(Base, UserMixin):
     __tablename__ = 'user'
 
-    username = Column(String, primary_key=True)
+    id = Column(String, primary_key=True)
     password = Column(String)
-    movie_ids = Column(JSONType)
+    movie_ids = Column(String)
 
 class Movie(Base):
     __tablename__ = 'movie'
 
-    movie_id = Column(Integer, primary_key=True)
+    movie_id = Column(String, primary_key=True)
     title = Column(String)
     release_date = Column(String)
     directors = Column(String)
+    cover_url = Column(String)
+    plot_summary = Column(String)
 
-engine = create_engine('postgresql://hamza:uI55Ooz_c9Glepdnj6b_rA@free-tier14.aws-us-east-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dhamza-cluster-2328')
+engine = create_engine('cockroachdb://hamza:cMeaMA50MC9Ln2JzC7JRRw@free-tier14.aws-us-east-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dhamza-cluster-2345')
 
-session = Session(engine)
+Base.metadata.create_all(engine)
+
+db_session = Session(engine)
 
 print("Database setup successfully")
 
