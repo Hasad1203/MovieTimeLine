@@ -1,12 +1,12 @@
-import "./Login.css";
+import "./Register.css";
 
-const Login = () => {
+const Register = () => {
   return (
     <div className="login_main">
       <a href="" className="login_header">
         MOVIETIMELINE.
       </a>
-      <a href="/register" className="sign_up">
+      <a href="" className="sign_up">
         Sign up
       </a>
       <div className="login_background">
@@ -38,4 +38,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
