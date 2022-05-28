@@ -67,7 +67,7 @@ def add_movie():
             movie_id=movie_query[0].movieID, 
             title=movie['title'], 
             directors=','.join(directors), 
-            cover_url = movie['cover'], 
+            cover_url = movie['full-size cover url'], 
             plot_summary=movie['plot summary'],
             release_date = release_date_string
         )
