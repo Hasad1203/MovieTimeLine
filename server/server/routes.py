@@ -17,7 +17,7 @@ def load_user(username):
 
 @app.route('/reg', methods=['GET','POST'])
 def registration():
-    
+
     if db_session.query(User).filter_by(id='hasad1203') != None:
         db_session.delete(db_session.query(User).filter_by(id='hasad1203').first())
         db_session.commit()
@@ -105,6 +105,7 @@ def return_movies():
         'release_date':current_movie.release_date}
         movie_objects.append(current_movie_object)
     movie_objects = sorted(movie_objects, key=lambda d: datetime.strptime(d['release date'], "%d %B %Y")) 
+    
     return jsonify(movie_objects)
 
 @app.route('/delete', methods=['GET','POST'])
