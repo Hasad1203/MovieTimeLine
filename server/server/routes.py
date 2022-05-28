@@ -31,7 +31,6 @@ def registration():
     return jsonify("0")
 
 @app.route('/login', methods=['GET','POST'])
-@login_required
 def login():
     username = "front end username"
     password = "front end password"
