@@ -10,7 +10,7 @@ const Movies = () => {
       release_date: "05/31/2022",
       directors: ["Joss Whedon", "Jamed Webb", "Danseeee"],
       cover_url:
-        "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SY150_CR0,0,101,150_.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@.jpg",
     },
     {
       movie_id: "1",
@@ -18,7 +18,7 @@ const Movies = () => {
       release_date: "05/31/2022",
       directors: ["Joss Whedon"],
       cover_url:
-        "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SY150_CR0,0,101,150_.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@.jpg",
     },
     {
       movie_id: "1",
@@ -26,7 +26,7 @@ const Movies = () => {
       release_date: "05/31/2022",
       directors: ["Joss Whedon"],
       cover_url:
-        "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SY150_CR0,0,101,150_.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@.jpg",
     },
   ];
 
