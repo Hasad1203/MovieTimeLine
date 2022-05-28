@@ -17,28 +17,41 @@ def load_user(username):
 
 @app.route('/reg', methods=['GET','POST'])
 def registration():
+    username = "front end username"
+    password = "front end password"
+    
+    user_exists = db_session.query(User).filter_by(id=username).first()
+    if user_exists:
+        return jsonify("1")
 
-    if db_session.query(User).filter_by(id='hasad1203') != None:
-        db_session.delete(db_session.query(User).filter_by(id='hasad1203').first())
-        db_session.commit()
-    new_user = User(id='hasad1203', password='applesauce', movie_ids='1')
+    new_user = User(id='hasad1203', password='applesauce', movie_ids='')
     db_session.add(new_user)
     db_session.commit()
 
-    login_user(new_user)
-
-    return jsonify("1")
+    return jsonify("0")
 
 @app.route('/login', methods=['GET','POST'])
 @login_required
 def login():
-    return jsonify("1")
+    username = "front end username"
+    password = "front end password"
+
+    user_exists = db_session.query(User).filter_by(id=username).first()
+    if user_exists:
+        if user_exists.password != password:
+            return jsonify("1")
+    else:
+        return jsonify("1")
+    
+    login_user(user_exists)
+
+    return jsonify("0")
 
 @app.route('/logout', methods=['GET','POST'])
 @login_required
 def logout():
     logout_user()
-    return jsonify("1")
+    return jsonify("0")
 
 @app.route('/add', methods=['GET','POST'])
 @login_required
@@ -47,11 +60,14 @@ def add_movie():
 
     movie_query = ia.search_movie('avengers endgame')
 
-    movie_exists_in_db = db_session.query(Movie).filter_by(movie_id=movie_query[0].movieID)
+    movie_exists_in_db = db_session.query(Movie).filter_by(movie_id=movie_query[0].movieID).first()
 
-    if movie_exists_in_db == None:
+    if not movie_exists_in_db:
 
         movie = ia.get_movie(movie_query[0].movieID)
+
+        if 'directed by' not in movie:
+            return jsonify("1")
 
         directors = []
 
@@ -85,7 +101,7 @@ def add_movie():
         update_user.movie_ids = current_movie_ids_string
         db_session.commit()
 
-    return jsonify("1")
+    return jsonify("0")
 
 
 @app.route('/display', methods=['GET','POST'])
@@ -111,7 +127,7 @@ def return_movies():
 @app.route('/delete', methods=['GET','POST'])
 @login_required
 def delete_movie():
-    deletion_id = '12345'
+    deletion_id = "front end movie id"
     current_user = db_session.query(User).filter_by(id=current_user.id).first()
     current_user_movies = current_user.movie_ids
     current_user_movies_list = current_user_movies.split(',')
@@ -123,7 +139,7 @@ def delete_movie():
     current_user.movie_ids = current_user_movies_ids_string
     db_session.commit()
 
-    return jsonify("1")
+    return jsonify("0")
 
     
 
