@@ -1,8 +1,11 @@
 import Axios from "axios";
 import Countdown from "react-countdown";
+import { useNavigate } from "react-router-dom";
 
 const Item = (props) => {
   const { movie_id, title, release_date, directors, cover_url } = props;
+
+  let navigate = useNavigate();
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     return (
@@ -34,7 +37,9 @@ const Item = (props) => {
     <div
       onClick={async () => {
         await Axios.post("http://127.0.0.1:5000/delete", { movie_id }).then(
-          (res) => {}
+          (res) => {
+            if (res.data === "0") navigate("/movies");
+          }
         );
       }}
       className="item-main"
