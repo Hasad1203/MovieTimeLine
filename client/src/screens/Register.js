@@ -66,7 +66,7 @@ const Register = () => {
           onClick={async () => {
             let data;
             if (password === confirmPassword)
-              await Axios.post("http://127.0.0.1:5000/reg", {
+              await Axios.post("/reg", {
                 username,
                 password,
               }).then((res) => (data = res.data));
