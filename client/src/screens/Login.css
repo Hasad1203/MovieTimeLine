@@ -47,10 +47,7 @@
   padding: 2%;
   text-align: center;
 }
-.login_background:hover {
-  transform: translate(0px, -5px);
-  transition: 0.5s;
-}
+
 .login_background h1 {
   color: black;
   padding-bottom: 0%;
