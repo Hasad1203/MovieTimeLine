@@ -1,5 +1,6 @@
 # Used to specify back-end routing functions
 from server import app
+from server.helpers import render_page
 from server.models import User, Movie, db_session
 from flask import request, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -45,7 +46,9 @@ def login():
     
     login_user(user_exists)
 
-    return jsonify("0")
+    print("1.", current_user.is_authenticated)
+
+    return jsonify(username)
 
 @app.route('/logout', methods=['GET','POST'])
 @login_required
@@ -66,7 +69,9 @@ def add_movie():
 
         movie = ia.get_movie(movie_query[0].movieID)
 
-        if 'directed by' not in movie:
+        print("TITLE", movie["directed by"])
+
+        if not movie["directed by"]:
             return jsonify("1")
 
         directors = []
@@ -74,9 +79,16 @@ def add_movie():
         for element in movie['directed by']:
             directors.append(element['name'])
 
-        release_date_datetime_object = datetime.strptime(ia.get_movie_release_dates(movie_query[0].movieID)['data']['raw release dates'][0]['date'], "%d %B %Y")
-
-        release_date_string = release_date_datetime_object.strftime("%m/%d/%Y")
+        try:
+            release_date_datetime_object = datetime.strptime(ia.get_movie_release_dates(movie_query[0].movieID)['data']['raw release dates'][0]['date'], "%d %B %Y")
+            release_date_string = release_date_datetime_object.strftime("%m/%d/%Y")
+        except ValueError:
+            try:
+                release_date_datetime_object = datetime.strptime(ia.get_movie_release_dates(movie_query[0].movieID)['data']['raw release dates'][0]['date'], "%B %Y")
+                release_date_string = release_date_datetime_object.strftime("%m/01/%Y")
+            except ValueError:
+                release_date_datetime_object = datetime.strptime(ia.get_movie_release_dates(movie_query[0].movieID)['data']['raw release dates'][0]['date'], " %Y")
+                release_date_string = release_date_datetime_object.strftime("01/01/%Y")
 
 
         new_movie = Movie(
@@ -84,9 +96,11 @@ def add_movie():
             title=movie['title'], 
             directors=','.join(directors), 
             cover_url = movie['full-size cover url'], 
-            plot_summary=movie['plot summary'],
+            plot_summary=movie['plot summary'][0],
             release_date = release_date_string
         )
+
+        print("HEY", new_movie)
 
         db_session.add(new_movie)
         db_session.commit()
@@ -101,45 +115,35 @@ def add_movie():
         update_user.movie_ids = current_movie_ids_string
         db_session.commit()
 
-    return jsonify("0")
+    return render_page(current_user, db_session)
 
 
 @app.route('/display', methods=['GET','POST'])
 @login_required
 def return_movies():
-    current_user_lg = db_session.query(User).filter_by(id=current_user.id).first()
-    current_user_movies = current_user_lg.movie_ids
-    current_user_movies_list = current_user_movies.split(',')
-    movie_objects = []
-    for element in current_user_movies_list:
-        current_movie = db_session.query(Movie).filter_by(movie_id = element).first()
-        current_movie_object = {'movie_id':current_movie.movie_id, 
-        'title':current_movie.title, 
-        'directors':current_movie.directors, 
-        'cover_url':current_movie.cover_url, 
-        'plot_summary':current_movie.plot_summary,
-        'release_date':current_movie.release_date}
-        movie_objects.append(current_movie_object)
-    movie_objects = sorted(movie_objects, key=lambda d: datetime.strptime(d['release date'], "%d %B %Y")) 
-    
-    return jsonify(movie_objects)
+    return render_page(current_user, db_session)
 
 @app.route('/delete', methods=['GET','POST'])
 @login_required
 def delete_movie():
     deletion_id = json.loads(request.data.decode("utf-8"))['movie_id']
-    current_user = db_session.query(User).filter_by(id=current_user.id).first()
-    current_user_movies = current_user.movie_ids
+    print(deletion_id)
+    current_user_lg = db_session.query(User).filter_by(id=current_user.id).first()
+    current_user_movies = current_user_lg.movie_ids
     current_user_movies_list = current_user_movies.split(',')
-    for i in range(current_user_movies_list):
+    index_to_delete = 0
+    for i in range(len(current_user_movies_list)):
+        print(current_user_movies_list[i])
         if current_user_movies_list[i] == deletion_id:
-            current_user_movies_list.pop(i)
-        break
+            index_to_delete = i
+            break
+    current_user_movies_list.pop(index_to_delete)
     current_user_movies_ids_string = ','.join(current_user_movies_list)
-    current_user.movie_ids = current_user_movies_ids_string
+    print(current_user_movies_ids_string)
+    current_user_lg.movie_ids = current_user_movies_ids_string
     db_session.commit()
 
-    return jsonify("0")
+    return render_page(current_user, db_session)
 
     
 

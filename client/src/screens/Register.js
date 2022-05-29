@@ -82,10 +82,10 @@ const Register = () => {
         {status}
         <p>
           Already have an account?
-          <span className="back_to_signin" href="">
+          <a className="back_to_signin" href="/">
             {" "}
             Sign In{" "}
-          </span>
+          </a>
         </p>
       </div>
     </div>
