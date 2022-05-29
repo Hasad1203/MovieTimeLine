@@ -172,3 +172,17 @@
 .movies-logout:hover {
   text-decoration: underline;
 }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #d4d4d400;
+}
+::-webkit-scrollbar-thumb {
+  background: #8787875b;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d0cfcf;
+}

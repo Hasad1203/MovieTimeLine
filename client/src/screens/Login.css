@@ -41,7 +41,8 @@
   margin-left: auto;
   margin-right: auto;
   width: 50vw;
-  height: 50vh;
+  min-height: 50vh;
+  height: auto;
   border-radius: 15px;
   margin-top: 10vh;
   padding: 2%;

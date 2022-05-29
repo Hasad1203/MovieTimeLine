@@ -1,0 +1,26 @@
+.back_to_signin {
+  color: #ec994b;
+}
+.signin_background {
+  margin-top: 5vh;
+  background: #ffffff;
+  margin-left: auto;
+  margin-right: auto;
+  width: 47vw;
+  min-height: 50vh;
+  height: auto;
+  border-radius: 15px;
+  padding: 2%;
+  text-align: center;
+}
+.form_group_signup {
+  border-color: #ec994b00;
+  border-bottom-color: #ec994b;
+  background-color: rgba(0, 0, 0, 0);
+  color: #ffffff;
+  margin: 5%;
+  margin-top: 3%;
+
+  width: 70%;
+  font-size: larger;
+}
