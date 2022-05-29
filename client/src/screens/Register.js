@@ -65,13 +65,14 @@ const Register = () => {
         <button
           onClick={async () => {
             let data;
-            if (password === confirmPassword)
+            if (password === confirmPassword) {
               await Axios.post("/reg", {
                 username,
                 password,
               }).then((res) => (data = res.data));
-            if (data === "1") setStatus("User already exists.");
-            else setStatus("Account created!");
+              if (data === "1") setStatus("User already exists.");
+              else setStatus("Account created!");
+            } else setStatus("Passwords do not match.")
           }}
           className="login_button"
           value="Register"

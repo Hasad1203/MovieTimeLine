@@ -74,15 +74,19 @@ def add_movie():
         for element in movie['directed by']:
             directors.append(element['name'])
 
+        for element in (ia.get_movie_release_dates(movie_query[0].movieID)['data']['raw release dates']):
+            if element['country_code'] == 'US':
+                release_date = element['date']
+
         try:
-            release_date_datetime_object = datetime.strptime(ia.get_movie_release_dates(movie_query[0].movieID)['data']['raw release dates'][0]['date'], "%d %B %Y")
+            release_date_datetime_object = datetime.strptime(release_date, "%d %B %Y")
             release_date_string = release_date_datetime_object.strftime("%m/%d/%Y")
         except ValueError:
             try:
-                release_date_datetime_object = datetime.strptime(ia.get_movie_release_dates(movie_query[0].movieID)['data']['raw release dates'][0]['date'], "%B %Y")
+                release_date_datetime_object = datetime.strptime(release_date, "%B %Y")
                 release_date_string = release_date_datetime_object.strftime("%m/01/%Y")
             except ValueError:
-                release_date_datetime_object = datetime.strptime(ia.get_movie_release_dates(movie_query[0].movieID)['data']['raw release dates'][0]['date'], " %Y")
+                release_date_datetime_object = datetime.strptime(release_date, " %Y")
                 release_date_string = release_date_datetime_object.strftime("01/01/%Y")
 
 
@@ -94,10 +98,6 @@ def add_movie():
             plot_summary=movie['plot summary'][0],
             release_date = release_date_string
         )
-
-        print("DATE", release_date_string)
-
-        print("HEY", new_movie)
 
         db_session.add(new_movie)
         db_session.commit()
