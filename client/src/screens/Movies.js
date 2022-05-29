@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import "./Movies.css";
 import Item from "../components/Item";
@@ -8,24 +8,20 @@ import Axios from "axios";
 
 const Movies = () => {
   const [movie, setMovie] = useState("");
+  const [data, setData] = useState([]);
 
   let navigate = useNavigate();
-  const data = [
-    {
-      movie_id: "1",
-      title: "THOR: LOVE AND THUNDER",
-      release_date: "05/31/2022",
-      directors: ["Joss Whedon", "Jamed Webb", "Danseeee"],
-      cover_url:
-        "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@.jpg",
-    },
-  ];
+  let location = useLocation()
+  let username =  location.state ? location.state.metadata : null
 
   useEffect(() => {
     const getData = async () => {
-      Axios.get("/display").then((res) => (data = res.data));
+      Axios.get("/display").then((res) => res.data !== "1" ? (setData(res.data)) : null);
     };
     getData();
+
+    if (!username)
+      navigate("/")
   }, []);
 
   return (
@@ -38,13 +34,15 @@ const Movies = () => {
           className="movies-search-input"
           type="text"
           placeholder="movie name"
+          value={movie}
         />
         <div
           onClick={async () => {
             await Axios.post("/add", { movie }).then((res) => {
               if (res.data === "1") {
               } else {
-                navigate("/movies");
+                setMovie("")
+                setData(res.data);
               }
             });
           }}
@@ -63,6 +61,13 @@ const Movies = () => {
               release_date={item.release_date}
               directors={item.directors}
               cover_url={item.cover_url}
+              onClick={async () => {
+                await Axios.post("/delete", { movie_id: item.movie_id }).then(
+                  (res) => {
+                   return res.data === "1" ?  setData([]) : setData(res.data);
+                  }
+                );
+              }}
             />
           );
         })}
@@ -76,7 +81,7 @@ const Movies = () => {
         }}
         className="movies-logout"
       >
-        Logout (musaasad2020)
+        Logout ({username})
       </div>
     </div>
   );

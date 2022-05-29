@@ -3,7 +3,7 @@ import Countdown from "react-countdown";
 import { useNavigate } from "react-router-dom";
 
 const Item = (props) => {
-  const { movie_id, title, release_date, directors, cover_url } = props;
+  const { movie_id, title, release_date, directors, cover_url, onClick } = props;
 
   let navigate = useNavigate();
 
@@ -35,13 +35,7 @@ const Item = (props) => {
 
   return (
     <div
-      onClick={async () => {
-        await Axios.post("http://127.0.0.1:5000/delete", { movie_id }).then(
-          (res) => {
-            if (res.data === "0") navigate("/movies");
-          }
-        );
-      }}
+      onClick={onClick}
       className="item-main"
     >
       <img className="item-image" src={cover_url} />

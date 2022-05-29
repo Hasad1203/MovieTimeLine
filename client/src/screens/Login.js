@@ -39,7 +39,7 @@ const Login = () => {
               setPassword(e.target.value);
             }}
             className="form_group"
-            type="text"
+            type="password"
             name="password"
             id="password "
             placeholder="Password:"
@@ -55,7 +55,7 @@ const Login = () => {
             if (data === "1") setStatus("Login unsuccessful.");
             else {
               setStatus("Redirecting...");
-              navigate("/movies");
+              navigate("/movies", {state:{metadata:data}});
             }
           }}
           className="login_button"

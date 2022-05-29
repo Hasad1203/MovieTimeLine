@@ -1,5 +1,6 @@
 # Used to define tables in the Database
 
+import os
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import declarative_base, Session
 from flask_login import UserMixin
@@ -23,7 +24,7 @@ class Movie(Base):
     cover_url = Column(String)
     plot_summary = Column(String)
 
-engine = create_engine('cockroachdb://hamza:upjgv2M6UfLzC1iLKbTZZw@free-tier14.aws-us-east-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dhamza-cluster-2364')
+engine = create_engine(f"cockroachdb://hamza:{os.environ['PASS']}@free-tier14.aws-us-east-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dhamza-cluster-2364")
 
 Base.metadata.create_all(engine)
 
