@@ -69,11 +69,6 @@ def add_movie():
 
         movie = ia.get_movie(movie_query[0].movieID)
 
-        print("TITLE", movie["directed by"])
-
-        if not movie["directed by"]:
-            return jsonify("1")
-
         directors = []
 
         for element in movie['directed by']:
@@ -127,7 +122,6 @@ def return_movies():
 @login_required
 def delete_movie():
     deletion_id = json.loads(request.data.decode("utf-8"))['movie_id']
-    print(deletion_id)
     current_user_lg = db_session.query(User).filter_by(id=current_user.id).first()
     current_user_movies = current_user_lg.movie_ids
     current_user_movies_list = current_user_movies.split(',')
