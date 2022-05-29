@@ -1,3 +1,4 @@
+import Axios from "axios";
 import Countdown from "react-countdown";
 
 const Item = (props) => {
@@ -30,7 +31,14 @@ const Item = (props) => {
   };
 
   return (
-    <div className="item-main">
+    <div
+      onClick={async () => {
+        await Axios.post("http://127.0.0.1:5000/delete", { movie_id }).then(
+          (res) => {}
+        );
+      }}
+      className="item-main"
+    >
       <img className="item-image" src={cover_url} />
       <div className="item-header">{title}</div>
       {directors.map((director) => (
