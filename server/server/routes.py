@@ -24,7 +24,7 @@ def registration():
     if user_exists:
         return jsonify("1")
 
-    new_user = User(id='hasad1203', password='applesauce', movie_ids='')
+    new_user = User(id=username, password=password, movie_ids='')
     db_session.add(new_user)
     db_session.commit()
 
