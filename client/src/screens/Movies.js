@@ -5,10 +5,14 @@ import "./Movies.css";
 import Item from "../components/Item";
 import Plus from "../icons/Plus";
 import Axios from "axios";
+import Spin from "../icons/Spin";
 
 const Movies = () => {
   const [movie, setMovie] = useState("");
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(
+    <Plus className="movies-search-icon" />
+  );
 
   let navigate = useNavigate();
   let location = useLocation();
@@ -39,6 +43,7 @@ const Movies = () => {
         />
         <div
           onClick={async () => {
+            setLoading(<Spin className="movies-search-icon loading" />);
             await Axios.post("/add", { movie }).then((res) => {
               if (res.data === "1") {
               } else {
@@ -46,10 +51,11 @@ const Movies = () => {
                 setData(res.data);
               }
             });
+            setLoading(<Plus className="movies-search-icon" />);
           }}
           className="movies-search-button"
         >
-          <Plus className="movies-search-icon" />
+          {loading}
         </div>
       </div>
       <div className="movies-title">your movie list:</div>
