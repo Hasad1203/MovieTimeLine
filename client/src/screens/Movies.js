@@ -11,17 +11,18 @@ const Movies = () => {
   const [data, setData] = useState([]);
 
   let navigate = useNavigate();
-  let location = useLocation()
-  let username =  location.state ? location.state.metadata : null
+  let location = useLocation();
+  let username = location.state ? location.state.metadata : null;
 
   useEffect(() => {
     const getData = async () => {
-      Axios.get("/display").then((res) => res.data !== "1" ? (setData(res.data)) : null);
+      Axios.get("/display").then((res) =>
+        res.data !== "1" ? setData(res.data) : null
+      );
     };
     getData();
 
-    if (!username)
-      navigate("/")
+    if (!username) navigate("/");
   }, []);
 
   return (
@@ -41,7 +42,7 @@ const Movies = () => {
             await Axios.post("/add", { movie }).then((res) => {
               if (res.data === "1") {
               } else {
-                setMovie("")
+                setMovie("");
                 setData(res.data);
               }
             });
@@ -64,7 +65,7 @@ const Movies = () => {
               onClick={async () => {
                 await Axios.post("/delete", { movie_id: item.movie_id }).then(
                   (res) => {
-                   return res.data === "1" ?  setData([]) : setData(res.data);
+                    return res.data === "1" ? setData([]) : setData(res.data);
                   }
                 );
               }}
