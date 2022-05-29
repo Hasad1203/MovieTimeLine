@@ -1,6 +1,14 @@
+import Axios from "axios";
+import { useState } from "react";
+
 import "./Register.css";
 
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [status, setStatus] = useState("");
+
   return (
     <div className="login_main">
       <a href="" className="login_header">
@@ -22,6 +30,9 @@ const Register = () => {
         </div>
         <div>
           <input
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
             className="form_group_signup"
             type="text"
             name="username"
@@ -31,23 +42,44 @@ const Register = () => {
         </div>
         <div>
           <input
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             className="form_group_signup"
-            type="text"
+            type="password"
             name="password"
             id="password "
             placeholder="New Password:"
           />
           <input
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+            }}
             className="form_group_signup"
-            type="text"
+            type="password"
             name="password"
             id="password "
             placeholder="Confirm Password:"
           />
         </div>
-        <button className="login_button" value="Register" src="">
+        <button
+          onClick={async () => {
+            let data;
+            if (password === confirmPassword)
+              await Axios.post("http://127.0.0.1:5000/reg", {
+                username,
+                password,
+              }).then((res) => (data = res.data));
+            if (data === "1") setStatus("User already exists.");
+            else setStatus("Account created!");
+          }}
+          className="login_button"
+          value="Register"
+          src=""
+        >
           Register
         </button>
+        {status}
         <p>
           Already have an account?
           <span className="back_to_signin" href="">
