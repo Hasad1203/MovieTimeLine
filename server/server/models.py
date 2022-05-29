@@ -24,7 +24,7 @@ class Movie(Base):
     cover_url = Column(String)
     plot_summary = Column(String)
 
-engine = create_engine(f"cockroachdb://hamza:{os.environ['PASS']}@free-tier14.aws-us-east-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dhamza-cluster-2364")
+engine = create_engine(f"cockroachdb://hamza:{os.environ['PASS']}@free-tier14.aws-us-east-1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&options=--cluster%3Dhamza-cluster-2376")
 
 Base.metadata.create_all(engine)
 
