@@ -5,6 +5,7 @@ from flask import request, jsonify
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from imdb import Cinemagoer
 from datetime import datetime
+import json
 
 print("Routes running successfully...")
 
@@ -17,8 +18,8 @@ def load_user(username):
 
 @app.route('/reg', methods=['GET','POST'])
 def registration():
-    username = "front end username"
-    password = "front end password"
+    username =  json.loads(request.data.decode("utf-8"))['username']
+    password = json.loads(request.data.decode("utf-8"))['password']
     
     user_exists = db_session.query(User).filter_by(id=username).first()
     if user_exists:
@@ -32,8 +33,8 @@ def registration():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    username = "front end username"
-    password = "front end password"
+    username =  json.loads(request.data.decode("utf-8"))['username']
+    password = json.loads(request.data.decode("utf-8"))['password']
 
     user_exists = db_session.query(User).filter_by(id=username).first()
     if user_exists:
@@ -57,7 +58,7 @@ def logout():
 def add_movie():
     ia = Cinemagoer()
 
-    movie_query = ia.search_movie('avengers endgame')
+    movie_query = ia.search_movie(json.loads(request.data.decode("utf-8"))['movie'])
 
     movie_exists_in_db = db_session.query(Movie).filter_by(movie_id=movie_query[0].movieID).first()
 
@@ -106,8 +107,8 @@ def add_movie():
 @app.route('/display', methods=['GET','POST'])
 @login_required
 def return_movies():
-    current_user = db_session.query(User).filter_by(id=current_user.id).first()
-    current_user_movies = current_user.movie_ids
+    current_user_lg = db_session.query(User).filter_by(id=current_user.id).first()
+    current_user_movies = current_user_lg.movie_ids
     current_user_movies_list = current_user_movies.split(',')
     movie_objects = []
     for element in current_user_movies_list:
@@ -126,7 +127,7 @@ def return_movies():
 @app.route('/delete', methods=['GET','POST'])
 @login_required
 def delete_movie():
-    deletion_id = "front end movie id"
+    deletion_id = json.loads(request.data.decode("utf-8"))['movie_id']
     current_user = db_session.query(User).filter_by(id=current_user.id).first()
     current_user_movies = current_user.movie_ids
     current_user_movies_list = current_user_movies.split(',')
