@@ -95,6 +95,8 @@ def add_movie():
             release_date = release_date_string
         )
 
+        print("DATE", release_date_string)
+
         print("HEY", new_movie)
 
         db_session.add(new_movie)
