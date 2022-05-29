@@ -14,7 +14,7 @@ const Register = () => {
       <a href="" className="login_header">
         MOVIETIMELINE.
       </a>
-      <a href="" className="sign_up">
+      <a href="/" className="sign_up">
         Sign In
       </a>
       <div className="signin_background">
