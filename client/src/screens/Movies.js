@@ -23,9 +23,7 @@ const Movies = () => {
 
   useEffect(() => {
     const getData = async () => {
-      Axios.get("http://127.0.0.1:5000/display").then(
-        (res) => (data = res.data)
-      );
+      Axios.get("/display").then((res) => (data = res.data));
     };
     getData();
   }, []);
@@ -43,14 +41,12 @@ const Movies = () => {
         />
         <div
           onClick={async () => {
-            await Axios.post("http://127.0.0.1:5000/add", { movie }).then(
-              (res) => {
-                if (res.data === "1") {
-                } else {
-                  navigate("/movies");
-                }
+            await Axios.post("/add", { movie }).then((res) => {
+              if (res.data === "1") {
+              } else {
+                navigate("/movies");
               }
-            );
+            });
           }}
           className="movies-search-button"
         >
@@ -74,7 +70,7 @@ const Movies = () => {
       </div>
       <div
         onClick={async () => {
-          await Axios.post("http://127.0.0.1:5000/logout").then((res) => {
+          await Axios.post("/logout").then((res) => {
             if (res.data === "0") navigate("/");
           });
         }}

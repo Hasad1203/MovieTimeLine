@@ -46,7 +46,7 @@ const Login = () => {
         <button
           onClick={async () => {
             let data;
-            await Axios.post("http://127.0.0.1:5000/login", {
+            await Axios.post("/login", {
               username,
               password,
             }).then((res) => (data = res.data));
