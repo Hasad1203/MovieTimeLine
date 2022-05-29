@@ -16,10 +16,10 @@ const Login = () => {
         MOVIETIMELINE.
       </a>
       <a href="/register" className="sign_up">
-        Sign up
+        Sign Up
       </a>
       <div className="login_background">
-        <h1>Sign In</h1>
+        <h1>Sign In {status ? "(" + status + ")" : null}</h1>
 
         <div>
           <input
@@ -55,7 +55,7 @@ const Login = () => {
             if (data === "1") setStatus("Login unsuccessful.");
             else {
               setStatus("Redirecting...");
-              navigate("/movies", {state:{metadata:data}});
+              navigate("/movies", { state: { metadata: data } });
             }
           }}
           className="login_button"
@@ -64,7 +64,6 @@ const Login = () => {
         >
           Login
         </button>
-        {status}
       </div>
     </div>
   );

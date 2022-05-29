@@ -11,14 +11,14 @@ const Register = () => {
 
   return (
     <div className="login_main">
-      <a href="" className="login_header">
+      <a href="/" className="login_header">
         MOVIETIMELINE.
       </a>
       <a href="/" className="sign_up">
         Sign In
       </a>
       <div className="signin_background">
-        <h1>Sign Up</h1>
+        <h1>Sign Up {status ? "(" + status + ")" : null}</h1>
         <div>
           <input
             className="form_group_signup"
@@ -79,12 +79,11 @@ const Register = () => {
         >
           Register
         </button>
-        {status}
+
         <p>
-          Already have an account?
+          Already have an account?{" "}
           <a className="back_to_signin" href="/">
-            {" "}
-            Sign In{" "}
+            Sign In
           </a>
         </p>
       </div>
