@@ -1,9 +1,11 @@
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import "./Login.css";
 
 const Login = () => {
+  let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
@@ -51,7 +53,10 @@ const Login = () => {
               password,
             }).then((res) => (data = res.data));
             if (data === "1") setStatus("Login unsuccessful.");
-            else setStatus("Redirecting...");
+            else {
+              setStatus("Redirecting...");
+              navigate("/movies");
+            }
           }}
           className="login_button"
           value="LOGIN"
